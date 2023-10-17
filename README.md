@@ -40,3 +40,15 @@ It offers a comprehensive API (Application Programming Interface) that allows de
 - The API offers streaming capabilities, allowing developers to implement real-time updates for activities such as new toots, notifications, and other interactions.
 
 - Mastodon's API provides information about instances and federation, enabling developers to retrieve data about instances, their policies, and the federated network of instances.
+### Available data from mastodon api
+
+| Data Type       | Fields/Attributes                                    |
+|-----------------|------------------------------------------------------|
+| User Data       | Username, Display Name, Bio, Avatar Image, Header Image, Follower Count, Following Count, Account Creation Date |
+| User Preferences| Privacy Settings, Notification Preferences, Account Visibility Options, Content Viewing Preferences |
+| Toots (Posts)   | Toot ID, Content Text, Attached Media, Creation Timestamp, Visibility Settings, Content Tags, Reblogs (Boosts) Count, Likes (Favourites) Count, Mentioned Users |
+| Notifications   | Notification ID, Notification Type, Related Toot ID, Timestamp, Notifying User |
+| Instance Data   | Instance Name, Instance Description, Instance Rules and Policies, Instance Admins and Moderators |
+| Federation Data | Connected Instances, Federation Policies, Interaction Policies with External Instances |
+| Metadata        | Hashtag Name, Associated Toots, Media ID, Media Type, Media URL, Language of the Toot |
+| Interaction Data| Follower ID, Followed User ID, User ID, Liked Toot ID, User ID, Boosted Toot ID |
