@@ -19,3 +19,25 @@ On peut classer les objectifs dans deux catégories :
     + Répartir les publications en fonction de leur langue
     + Compter le nombre de publications avec des contenus multimédias joints
     + Identifier les balises les plus fréquemment utilisées
+
+### What is Mastodon ?
+Mastodon is an open-source social media.
+It offers a comprehensive API (Application Programming Interface) that allows developers to interact with various aspects of the platform. Here's a brief summary of what the Mastodon API encompasses:
+
+- Mastodon's API provides secure authentication methods, allowing developers to implement secure user authentication and access control.
+
+- The API enables the management of user accounts, including user profile data, preferences, and settings.
+
+- Developers can create, retrieve, and manage toots (Mastodon's equivalent of tweets) through the API, including features like posting, fetching, and deleting toots.
+
+- The API allows access to notifications, enabling developers to fetch and manage notifications such as mentions, likes, and reposts.
+
+- Mastodon's API provides access to various timelines, including the home timeline, local timeline, and federated timeline, allowing developers to retrieve and interact with posts from different timelines.
+
+- The API facilitates interactions between users, including following/unfollowing users, liking toots, and reposting (boosting) content.
+
+- Mastodon's API supports search functionality, enabling users to search for specific content, users, or hashtags within the Mastodon network.
+
+- The API offers streaming capabilities, allowing developers to implement real-time updates for activities such as new toots, notifications, and other interactions.
+
+- Mastodon's API provides information about instances and federation, enabling developers to retrieve data about instances, their policies, and the federated network of instances.
