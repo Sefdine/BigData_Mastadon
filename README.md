@@ -1,24 +1,23 @@
 # BigData_Mastadon
 
-## Analyse des interactions utilisateur sur Mastodon : Utilisation de MapReduce, HBase et Apache Airflow
+## User Interaction Analysis on Mastodon: Utilizing MapReduce, HBase, and Apache Airflow
 
-**Description :** Ce projet vise à analyser en profondeur les données d'interaction des utilisateurs sur la plateforme *Mastodon*, un réseau social décentralisé à code source ouvert. En utilisant la puissance de MapReduce pour le traitement distribué des données, nous visons à extraire des informations pertinentes sur les schémas d'engagement des utilisateurs, la popularité du contenu et d'autres métriques clés. Les données traitées seront stockées de manière efficace dans HBase, une base de données NoSQL hautement évolutive, offrant une gestion efficace des données non structurées. Pour garantir un flux de travail fluide et efficace, nous intégrerons Apache Airflow, une plateforme de gestion des flux de travail et d'orchestration, permettant ainsi une automatisation robuste et une surveillance en temps réel du processus d'analyse des données. Cette approche holistique permettra une compréhension approfondie des comportements des utilisateurs sur Mastodon, ouvrant ainsi la voie à des insights significatifs pour les responsables marketing et les développeurs de produits.
+**Description:** This project aims to conduct a comprehensive analysis of user interaction data on the Mastodon platform, a decentralized, open-source social network. Leveraging the power of MapReduce for distributed data processing, our goal is to extract relevant information regarding user engagement patterns, content popularity, and other key metrics. The processed data will be efficiently stored in HBase, a highly scalable NoSQL database that offers effective management of unstructured data. To ensure a smooth and efficient workflow, we will integrate Apache Airflow, a workflow management and orchestration platform, enabling robust automation and real-time monitoring of the data analysis process. This holistic approach will lead to an in-depth understanding of user behavior on Mastodon, thereby providing significant insights for marketing managers and product developers.
 
-### Objectifs du projet :
-On peut classer les objectifs dans deux catégories :
+### Project Objectives:
+The objectives can be classified into two categories:
 
-- Analyser l'engagement des utilisateurs
+- Analyzing User Engagement
+    + Identifying users with the highest number of followers
+    + Calculating user engagement rates
+    + Studying user growth over time
+    + Identifying users mentioned in the most used tags
 
-    + Identifier les utilisateurs ayant le plus d'abonnés
-    + Calculer le taux d'engagement des utilisateurs
-    + Étudier la croissance des utilisateurs au fil du temps
-    + Recenser les utilisateurs mentionnés dans les balises les plus utilisées
-- Identifier la popularité du contenu
-
-    + Identifier les sites web externes les plus partagés
-    + Répartir les publications en fonction de leur langue
-    + Compter le nombre de publications avec des contenus multimédias joints
-    + Identifier les balises les plus fréquemment utilisées
+- Identifying Content Popularity
+    + Identifying the most shared external websites
+    + Categorizing posts based on their language
+    + Counting the number of posts with attached multimedia content
+    + Identifying the most frequently used tags
 
 ### What is Mastodon ?
 Mastodon is an open-source social media.
