@@ -2,6 +2,7 @@
 import json
 from mrjob.job import MRJob
 from mrjob.step import MRStep
+import happybase
 
 # Define class
 class Engagement(MRJob):
@@ -46,9 +47,6 @@ class Engagement(MRJob):
             ),
             MRStep(reducer=self.reduce_sorter)
         ]
-    
-import happybase
-import sys
 
 if __name__ == '__main__':
 

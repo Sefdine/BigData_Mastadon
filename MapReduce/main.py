@@ -1,22 +1,21 @@
 import subprocess
 import sys
+import os
 
-if len(sys.argv) != 2:
-    print("Usage: python3 main.py ../Data/mastodon_data.json")
-    sys.exit(1)
-
-data_file = sys.argv[1]
+# Get absolute paths
+home_directory = os.path.expanduser("~")
+data_file = os.path.abspath(sys.argv[1])
 
 # ********** User Engagement ************
-user_engagement = "UserEngagement/engagement.py"
-user_followers = "UserEngagement/followers.py"
-user_most_used_tag = "UserEngagement/mostUsedTag.py"
-user_growth_over_time = "UserEngagement/userGrowthOverTime.py"
+user_engagement = os.path.join(home_directory, "airflow/BigDATA_Mastodon/MapReduce/UserEngagement/engagement.py")
+user_followers = os.path.join(home_directory, "airflow/BigDATA_Mastodon/MapReduce/UserEngagement/followers.py")
+user_most_used_tag = os.path.join(home_directory, "airflow/BigDATA_Mastodon/MapReduce/UserEngagement/mostUsedTag.py")
+user_growth_over_time = os.path.join(home_directory, "airflow/BigDATA_Mastodon/MapReduce/UserEngagement/userGrowthOverTime.py")
 
 # ********** Content popularity ************
-content_language_script = "ContentPopularity/languagePostCategorize.py"
-content_multimedia_script = "ContentPopularity/postMultimediaCount.py"
-content_shared_website = "ContentPopularity/sharedWebsite.py"
+content_language_script = os.path.join(home_directory, "airflow/BigDATA_Mastodon/MapReduce/ContentPopularity/languagePostCategorize.py")
+content_multimedia_script = os.path.join(home_directory, "airflow/BigDATA_Mastodon/MapReduce/ContentPopularity/postMultimediaCount.py")
+content_shared_website = os.path.join(home_directory, "airflow/BigDATA_Mastodon/MapReduce/ContentPopularity/sharedWebsite.py")
 
 try:
     print('\n*********** User Engagement **************\n')
@@ -39,3 +38,4 @@ try:
 
 except subprocess.CalledProcessError as e:
     print(f"An error occurred: {e}")
+
