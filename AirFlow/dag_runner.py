@@ -8,7 +8,7 @@ default_args = {
     'depends_on_past': False,
     'start_date': datetime(2023, 10, 24),
     'retries': 1,
-    'retry_delay': timedelta(minutes=5),
+    'retry_delay': timedelta(seconds=10),
 }
 
 dag = DAG(
@@ -20,7 +20,7 @@ dag = DAG(
 
 run_script = BashOperator(
     task_id='run_engagement_script',
-    bash_command='python3 /path/to/engagement.py /path/to/data.json',
+    bash_command='python3 ~/airflow/BigDATA_Mastodon/MapReduce/main.py ~/airflow/BigDATA_Mastodon/Data/mastodon_data.json',
     dag=dag,
 )
 
