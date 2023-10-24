@@ -52,3 +52,18 @@ It offers a comprehensive API (Application Programming Interface) that allows de
 | Federation Data | Connected Instances, Federation Policies, Interaction Policies with External Instances |
 | Metadata        | Hashtag Name, Associated Toots, Media ID, Media Type, Media URL, Language of the Toot |
 | Interaction Data| Follower ID, Followed User ID, User ID, Liked Toot ID, User ID, Boosted Toot ID |
+
+### Tasks Realized
+- Plan the project tasks using Jira.
+- Fetch data from the Mastodon API and retrieve data from the public timeline using the requests method with pagination. Save the fetched data in a JSON file.
+- Upload the JSON file to HDFS (Hadoop Distributed File System).
+- Implement MapReduce for the project objectives while adhering to GDPR regulations.
+- Create a script to execute all MapReduce jobs simultaneously.
+- Load data from the MapReduce output into HBase.
+- Utilize Apache Airflow to schedule and execute the main script.
+
+### Used Technologies
+- Python
+- Hadoop Distributed File System (HDFS)
+- Apache HBase
+- Apache Airflow
