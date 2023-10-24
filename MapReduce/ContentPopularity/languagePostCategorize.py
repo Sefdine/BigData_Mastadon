@@ -2,6 +2,7 @@
 import json
 from mrjob.job import MRJob
 from mrjob.step import MRStep
+import happybase as hb
 
 # Define class
 class LanguagePostCategorize(MRJob):
@@ -44,4 +45,29 @@ class LanguagePostCategorize(MRJob):
         ]
 
 if __name__ == '__main__':
-    LanguagePostCategorize().run()
+    
+    mr_job = LanguagePostCategorize()
+
+    with mr_job.make_runner() as runner:
+
+        # Run the job
+        runner.run()
+
+        # Connect to Hbase
+        connection = hb.Connection('localhost')
+
+        # Create table if doesn't exists
+        if b'LanguagePosts' not in connection.tables():
+            connection.create_table(
+                'LanguagePosts',
+                {'cf': dict()}
+            )
+
+        # Connect to the table
+        table = connection.table('LanguagePosts')
+
+        # Insert the data into Hbase
+        for key, value in mr_job.parse_output(runner.cat_output()):
+            count = value[0]
+            post_id = value[1]
+            table.put(key.encode(), {'cf:count': str(count).encode(), 'cf:post_id':str(post_id).encode()})
