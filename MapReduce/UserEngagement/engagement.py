@@ -17,9 +17,9 @@ class Engagement(MRJob):
                 followers = data['account']['followers_count']
                 username = data['account']['username']
                 if followers > 0:
-                    yield "engagement_rate "+username, (favourites + reblogs) / followers
+                    yield username, (favourites + reblogs) / followers
                 else :
-                    yield "engagement_rate "+username, 0
+                    yield username, 0
         except:
             yield 'error', 'errorr'
 
@@ -47,5 +47,30 @@ class Engagement(MRJob):
             MRStep(reducer=self.reduce_sorter)
         ]
     
+import happybase
+import sys
+
 if __name__ == '__main__':
-    Engagement.run()
+
+    # Run the MRJob script
+    mr_job = Engagement()
+
+    with mr_job.make_runner() as runner:
+        # Run the job
+        runner.run()
+
+        # Connect to HBase
+        connection = happybase.Connection('localhost')
+
+        # Create a table if it does not exist
+        if b'User' not in connection.tables():
+            connection.create_table(
+                'User',
+                {'cf': dict()}
+            )
+
+        table = connection.table('User')
+
+        # Insert the data into HBase
+        for key, value in mr_job.parse_output(runner.cat_output()):
+            table.put(key.encode(), {'cf:Engagement': str(value).encode()})
