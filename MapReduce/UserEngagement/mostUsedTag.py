@@ -2,6 +2,7 @@
 import json
 from mrjob.job import MRJob
 from mrjob.step import MRStep
+import happybase
 
 # Define the class
 class MostUsedTag(MRJob):
@@ -42,4 +43,26 @@ class MostUsedTag(MRJob):
         ]
     
 if __name__ == '__main__':
-    MostUsedTag.run()
+
+    # Run the MRJob script
+    mr_job = MostUsedTag()
+
+    with mr_job.make_runner() as runner:
+        # Run the job
+        runner.run()
+
+        # Connect to HBase
+        connection = happybase.Connection('localhost')
+
+        # Create a table if it does not exist
+        if b'Tags' not in connection.tables():
+            connection.create_table(
+                'Tags',
+                {'cf': dict()}
+            )
+
+        table = connection.table('Tags')
+
+        # Insert the data into HBase
+        for key, value in mr_job.parse_output(runner.cat_output()):
+            table.put(key.encode(), {'cf:AttachedUsers': str(value).encode()})
