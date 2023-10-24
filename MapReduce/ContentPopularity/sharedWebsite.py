@@ -2,6 +2,7 @@
 import json
 from mrjob.job import MRJob
 from mrjob.job import MRStep
+import happybase as hb
 
 # Define class
 class SharedWebsite(MRJob):
@@ -41,4 +42,26 @@ class SharedWebsite(MRJob):
         ]
 
 if __name__ == '__main__':
-    SharedWebsite().run()
+    mr_job = SharedWebsite()
+
+    with mr_job.make_runner() as runner:
+
+        # Run the job
+        runner.run()
+
+        # Connect to Hbase
+        connection = hb.Connection('localhost')
+
+        # Create the table if does not exists
+        if b'SharedWebsite' not in connection.tables():
+            connection.create_table(
+                'SharedWebsite',
+                {'cf': dict()}
+            )
+
+        # Connect to the table
+        table = connection.table('SharedWebsite')
+
+        # Insert the data into Hbase
+        for key, value in mr_job.parse_output(runner.cat_output()):
+            table.put(key.encode(), {'cf:count': str(value).encode()})
