@@ -2,6 +2,7 @@
 import json
 from mrjob.job import MRJob
 from mrjob.step import MRStep
+import happybase
 
 # Define class
 class Followers(MRJob):
@@ -15,7 +16,7 @@ class Followers(MRJob):
                 followers = data['account']['followers_count']
                 username = data['account']['username']
 
-                yield "Followers:"+username, followers
+                yield username, followers
         except:
             yield 'error', 'errorr'
 
@@ -44,4 +45,26 @@ class Followers(MRJob):
         ]
     
 if __name__ == '__main__':
-    Followers.run()
+
+    # Run the MRJob script
+    mr_job = Followers()
+
+    with mr_job.make_runner() as runner:
+        # Run the job
+        runner.run()
+
+        # Connect to HBase
+        connection = happybase.Connection('localhost')
+
+        # Create a table if it does not exist
+        if b'User' not in connection.tables():
+            connection.create_table(
+                'User',
+                {'cf': dict()}
+            )
+
+        table = connection.table('User')
+
+        # Insert the data into HBase
+        for key, value in mr_job.parse_output(runner.cat_output()):
+            table.put(key.encode(), {'cf:Followers': str(value).encode()})
