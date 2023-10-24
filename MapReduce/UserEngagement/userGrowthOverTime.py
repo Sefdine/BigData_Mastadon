@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 from mrjob.job import MRJob
 from mrjob.step import MRStep
+import happybase as hb
 
 # Define class
 class UserGrowthOverTime(MRJob):
@@ -48,4 +49,27 @@ class UserGrowthOverTime(MRJob):
         ]
     
 if __name__ == '__main__':
-    UserGrowthOverTime().run()
+
+    # Run the MRJob script
+    mr_job = UserGrowthOverTime()
+
+    with mr_job.make_runner() as runner:
+        # Run the job
+        runner.run()
+
+        # Connect to the hbase
+        connection = hb.Connection('localhost')
+
+        # Create a table if does not exists
+        if b'UserGrowthOverTime' not in connection.tables():
+            connection.create_table(
+                'UserGrowthOverTime',
+                {'cf': dict()}
+            )
+
+        # Connect to the table
+        table = connection.table('UserGrowthOverTime')
+
+        # Insert the data into Hbase
+        for key, value in mr_job.parse_output(runner.cat_output()):
+            table.put(str(key).encode(), {'cf:numberOfUsers': str(value).encode()})
