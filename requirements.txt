@@ -1,0 +1,7 @@
+requests
+mastodon
+python-dotenv
+hdfs
+apache-airflow
+mrjob
+happybase
