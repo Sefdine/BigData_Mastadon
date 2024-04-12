@@ -67,3 +67,22 @@ services:
       - ./hadoop_volume/hadoop_historyserver:/hadoop/yarn/timeline
     env_file:
       - ./hadoop.env
+
+  hbase:
+    image: bde2020/hbase-standalone:1.0.0-hbase1.2.6
+    container_name: hbase
+    volumes:
+      - ./hbase_volume/hbase_data:/hbase-data
+      - ./hbase_volume/hbase_zookeeper_data:/zookeeper-data
+    ports:
+      - 16000:16000
+      - 16010:16010
+      - 16020:16020
+      - 16030:16030
+      - 2888:2888
+      - 3888:3888
+      - 2181:2181
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 datanode:9864"
+    env_file:
+      - ./hbase-standalone.env
