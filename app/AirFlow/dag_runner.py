@@ -6,7 +6,7 @@ from airflow.decorators import task
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': datetime(2023, 10, 24),
+    'start_date': datetime(2024, 4, 12),
     'retries': 1,
     'retry_delay': timedelta(seconds=10),
 }
@@ -20,7 +20,7 @@ dag = DAG(
 
 run_script = BashOperator(
     task_id='run_engagement_script',
-    bash_command='python3 ~/airflow/BigDATA_Mastodon/MapReduce/main.py ~/airflow/BigDATA_Mastodon/Data/mastodon_data.json',
+    bash_command='python3 /home/like/app/MapReduce/main.py /home/like/app/Data/mastodon_data.json',
     dag=dag,
 )
 
