@@ -68,21 +68,22 @@ services:
     env_file:
       - ./hadoop.env
 
-  hbase:
-    image: bde2020/hbase-standalone:1.0.0-hbase1.2.6
-    container_name: hbase
-    volumes:
-      - ./hbase_volume/hbase_data:/hbase-data
-      - ./hbase_volume/hbase_zookeeper_data:/zookeeper-data
+  hbase-master:
+    image: blueskyareahm/hbase-base:2.1.3
+    command: master
     ports:
-      - 16000:16000
+      - 9090:9090
       - 16010:16010
-      - 16020:16020
+
+  hbase-regionserver:
+    image: blueskyareahm/hbase-base:2.1.3
+    command: regionserver
+    ports:
       - 16030:16030
-      - 2888:2888
-      - 3888:3888
+      - 16201:16201
+      - 16301:16301
+
+  zookeeper:
+    image: blueskyareahm/hbase-zookeeper:3.4.13
+    ports:
       - 2181:2181
-    environment:
-      SERVICE_PRECONDITION: "namenode:9000 datanode:9864"
-    env_file:
-      - ./hbase-standalone.env
