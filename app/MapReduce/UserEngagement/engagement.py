@@ -58,7 +58,7 @@ if __name__ == '__main__':
         runner.run()
 
         # Connect to HBase
-        connection = happybase.Connection('localhost')
+        connection = happybase.Connection('hbase-master')
 
         # Create a table if it does not exist
         if b'User' not in connection.tables():
